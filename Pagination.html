@@ -1,0 +1,57 @@
+﻿<nav data-bind="visible: Any() === true">
+    <ul class="pagination">
+        <!-- ko if: FullMode === true -->
+        <li data-bind="css: { disabled: IsActive(1) === true }">
+            <!-- ko if: IsActive(1) === false -->
+            <a href="#" aria-label="First" data-bind="click: function() { ChangePage(1); }">
+                <span aria-hidden="true">First</span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: IsActive(1) === true -->
+            <span aria-hidden="true">First</span>
+            <!-- /ko -->
+        </li>
+        <!-- /ko -->
+
+        <li data-bind="css: { disabled: HasPrevious() === false }">
+            <!-- ko if: HasPrevious() === true -->
+            <a href="#" aria-label="Previous" data-bind="click: PreviousPage">
+                <span aria-hidden="true">Previous</span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: HasPrevious() === false -->
+            <span aria-hidden="true">Previous</span>
+            <!-- /ko -->
+        </li>
+
+        <!-- ko foreach: new Array(PagesCount()) -->
+        <li data-bind="visible: $parent.IsVisible($index() + 1), css: { active: $parent.IsActive($index() + 1) === true }">
+            <a href="#" data-bind="text: $index() + 1, click: function() { $parent.ChangePage($index() + 1); }"></a>
+        </li>
+        <!-- /ko -->
+
+        <li data-bind="css: { disabled: HasNext() === false }">
+            <!-- ko if: HasNext() === true -->
+            <a href="#" aria-label="Next" data-bind="click: NextPage">
+                <span aria-hidden="true">Next</span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: HasNext() === false -->
+            <span aria-hidden="true">Next</span>
+            <!-- /ko -->
+        </li>
+
+        <!-- ko if: FullMode === true -->
+        <li data-bind="css: { disabled: IsActive(PagesCount()) === true }">
+            <!-- ko if: IsActive(PagesCount()) === false -->
+            <a href="#" aria-label="Last" data-bind="click: function() { ChangePage(PagesCount()); }">
+                <span aria-hidden="true">Last</span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: IsActive(PagesCount()) === true -->
+            <span aria-hidden="true">Last</span>
+            <!-- /ko -->
+        </li>
+        <!-- /ko -->
+    </ul>
+</nav>
